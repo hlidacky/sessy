@@ -70,7 +70,7 @@ Images are pushed to Docker Hub under the `hlidacky` account ([hub.docker.com/re
 
 ![Docker Hub repositories](images/docker-account.png)
 
-Authentication uses a **Personal Access Token** (not the account password). The token is stored in **1Password** and exposed to Kamal via the `KAMAL_REGISTRY_PASSWORD` secret. The active token (`sessy-2`) has **Read, Write, Delete** scope — sufficient for Kamal to push new image layers and clean up old ones.
+Authentication uses a **Personal Access Token** (not the account password). The token is stored in Hlidacky **1Password**. Copy to the .kamal/secrets file `KAMAL_REGISTRY_PASSWORD` secret. The active token (`sessy-2`) has **Read, Write, Delete** scope — sufficient for Kamal to push new image layers and clean up old ones.
 
 ![Docker Hub personal access tokens](images/docker-access-token.png)
 
@@ -96,7 +96,7 @@ builder:
 
 ### Secrets
 
-`.kamal/secrets` is gitignored and must be created locally before deploying. Copy the values from **1Password** and fill them in:
+`.kamal/secrets` is gitignored and must be created locally before deploying. Copy the values from Hlidacky **1Password** and fill them in:
 
 ```sh
 KAMAL_REGISTRY_PASSWORD=your_dockerhub_token   # 1Password: Docker Hub hlidacky → token
