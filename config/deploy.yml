@@ -1,4 +1,4 @@
-<% SERVER_IP = "16.171.225.45" %>
+<% SERVER_IP = "16.16.156.105" %>
 # Name of your application. Used to uniquely configure containers.
 service: sessy
 
