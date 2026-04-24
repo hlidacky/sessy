@@ -1,10 +1,11 @@
 # Sessy Deployment Docs
 
+This folder contains deployment guides for running Sessy on your own infrastructure.
+
 1. Server Setup (AWS EC2) gets public IP
 2. Copy credentials to the local .kamal/secrets file (see 1Password Docker)
-3. 
+3. run `bin/kamal setup`
 
-This folder contains deployment guides for running Sessy on your own infrastructure.
 
 | Guide | Description |
 |-------|-------------|
