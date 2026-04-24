@@ -38,7 +38,8 @@ RUN apt-get update -qq && \
 # Install application gems
 COPY Gemfile Gemfile.lock vendor ./
 
-RUN bundle install && \
+RUN gem install bundler -v $(grep -A1 "BUNDLED WITH" Gemfile.lock | tail -1 | tr -d ' ') && \
+    bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git && \
     # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
     bundle exec bootsnap precompile -j 1 --gemfile
@@ -49,6 +50,9 @@ COPY . .
 # Precompile bootsnap code for faster boot times.
 # -j 1 disable parallel compilation to avoid a QEMU bug: https://github.com/rails/bootsnap/issues/495
 RUN bundle exec bootsnap precompile -j 1 app/ lib/
+
+# Build Tailwind CSS explicitly before asset precompile
+RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails tailwindcss:build
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
 RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
@@ -65,7 +69,10 @@ COPY --from=build /rails/bin/once-post-restore /hooks/post-restore
 
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
-    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash
+    useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
+    groupadd -f docker && \
+    useradd --no-create-home --shell /bin/bash ubuntu && \
+    usermod -aG docker ubuntu
 USER 1000:1000
 
 # Copy built artifacts: gems, application

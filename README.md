@@ -1,3 +1,5 @@
+## Hlidacky setup [Readme](https://github.com/hlidacky/sessy/tree/2026-setup-kamal/docs)
+
 <img src="docs/icon.svg" height="64" alt="Sessy icon">
 
 # Sessy
