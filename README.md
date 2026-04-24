@@ -1,3 +1,6 @@
+## Hlidacky setup
+[Readme](https://github.com/hlidacky/sessy/blob/db667c0debdbe0d5876cef06f2c8118bf36f4e15/docs/README.md)
+
 <img src="docs/icon.svg" height="64" alt="Sessy icon">
 
 # Sessy
